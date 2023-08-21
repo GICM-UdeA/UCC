@@ -44,7 +44,8 @@ En contra parte, el nuevo diseño para el sistema se basa en la tarjeta [Arty-Z7
 
 El nuevo diseño aprovecha sus características para implementar de forma más sencilla la interacción con el usuario, además de integrar las memorias FIFOs de la tarjeta para optimizar la trasferencia de las cuentas medidas entre ventanas, mitigando de esta forma el principal problema de su predecesor, los tiempos muertos entre ventanas. La característica más llamativa a nivel de usuario es la posibilidad de personalizar el proceso a través de entornos de programación en python, tal como lo es un Jupyter notebook. 
 
-De nuevo, los detalles completos pueden consultarse en la mencionada [tesis][manuscript]. 
+De nuevo, los detalles completos pueden consultarse en la mencionada [tesis][manuscript]. También puede ver la presentación de este proyecto que se hizo durante el [X Simposio de Ciencias Exactas y Naturales][simposio] (min 3:30:00 - 3:56:00) de la Universidad de Antioquia.
+
 
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
 
@@ -54,3 +55,4 @@ De nuevo, los detalles completos pueden consultarse en la mencionada [tesis][man
 [nexys4]: https://digilent.com/reference/programmable-logic/nexys-4-ddr/reference-manual
 [arty]: https://digilent.com/reference/programmable-logic/arty-z7/start
 [pynq]: http://www.pynq.io/
+[simposio]: https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Ffcenudea%2Fvideos%2F394431428642955%2F&show_text=false&width=560&t=12720
