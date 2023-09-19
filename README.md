@@ -26,21 +26,15 @@ Más detalles pueden ser consultados en el capítulo 3 de la [tesis][manuscript]
 
 ### <a name="porqué?"></a> ¿Por qué utilizar esta versión?
 
-Como se mencionó al comienzo, el desarrollo del proyecto está enmarcado en una necesidad del grupo de Óptica Cuántica. Ellos ya contaban con un sistema de conteo funcional basado en FPGA que fue diseñado e implementado mediante una tarjeta [Nexys 4 DDR][nexys4], una versión que integra varios periféricos con una FPGA de la familia Xilinx, la cual, trabaja a 100 MHz para hacer los conteos de coincidencias en un número controlable de ventajas de análisis de tamaño también configurable. La siguiente es una representación esquemática de su diseño. 
+Como se mencionó al comienzo, el desarrollo del proyecto está enmarcado en una necesidad del grupo de Óptica Cuántica. Ellos ya contaban con un sistema de conteo funcional basado en FPGA que fue diseñado e implementado mediante una tarjeta [Nexys 4 DDR][nexys4] (ver [`old``](old)), una versión que integra varios periféricos con una FPGA de la familia Xilinx, la cual, trabaja a 100 MHz para hacer los conteos de coincidencias en un número controlable de ventajas de análisis de tamaño también configurable. 
 
-<p align="center">
-  <image src="img/old-system.jpeg" alt="Descripción de la imagen" width="800x" justify="center"/>
-</p>
-
-De la imagen destaca el diseño modular del sistema, en particular, las dos de mayor importancias son `Super_uart` y `CPU`. El primero define la interacción entre el usuario y el sistema a través de protocolo serial, y el segundo gestiona el sistema de acuerdo con los comandos recibidos por el primero. Aunque es funcional, el diseño se queda corto en eficiencia. En esta versión del sistema la toma de datos y la extracción de la información son **procesos que se realizan de forma secuencial**. 
-
-Suponga que un usuario pretende analizar cinco ventanas de conteo de 10 ns, idealmente esto sería un proceso que tomaría un poco más de 50 ns y al final se podría tener las cuentas de las coincidencias para cada ventana, sin embargo, en este diseño se invierten poco más de 10 ms, ya que luego de desencadenar cada ventana de conteo se debe ejecutar el proceso de extracción de las cuentas a través del protocolo serial, **retrasando la ventana siguiente significativamente**.
+Aunque dicha versión es funcional, el diseño se queda corto en eficiencia. Allí la toma de datos y la extracción de la información son **procesos que se realizan de forma secuencial**, y por tanto, que relentiza las demás tareas. Suponga que un usuario pretende analizar cinco ventanas de conteo de 10 ns, idealmente esto sería un proceso que tomaría un poco más de 50 ns y al final se podría tener las cuentas de las coincidencias para cada ventana, sin embargo, en este diseño se invierten poco más de 10 ms, ya que luego de desencadenar cada ventana de conteo se debe ejecutar el proceso de extracción de las cuentas a través del protocolo serial, **retrasando la ventana siguiente significativamente**.
 
 <p align="center">
   <image src="img/old-system-delay.png" alt="Descripción de la imagen" width="500x" justify="center"/>
 </p>
 
-En contra parte, el nuevo diseño para el sistema se basa en la tarjeta [Arty-Z7][arty] (u otra equivalente, la tarjeta [PYNQ][pynq]). Dispositivos que, además de integrar periféricos con una FPGA de la familia Xilinx, incluyen un procesador AMD. Está característica diferencial hace de esta nueva generación de tarjetas una gran alternativa, ya que permiten incluso instalar pequeños sistemas operativos dedicados, que soportan programación en Python para implementar sistemas más fáciles de controlar.
+En contra parte, el nuevo diseño para el sistema (ver [`new`](new)) se basa en la tarjeta [Arty-Z7][arty] (u otra equivalente, la tarjeta [PYNQ][pynq]). Dispositivos que, además de integrar periféricos con una FPGA de la familia Xilinx, incluyen un procesador AMD. Está característica diferencial hace de esta nueva generación de tarjetas una gran alternativa, ya que permiten incluso instalar pequeños sistemas operativos dedicados, que soportan programación en Python para implementar sistemas más fáciles de controlar.
 
 El nuevo diseño aprovecha sus características para implementar de forma más sencilla la interacción con el usuario, además de integrar las memorias FIFOs de la tarjeta para optimizar la trasferencia de las cuentas medidas entre ventanas, mitigando de esta forma el principal problema de su predecesor, los tiempos muertos entre ventanas. La característica más llamativa a nivel de usuario es la posibilidad de personalizar el proceso a través de entornos de programación en python, tal como lo es un Jupyter notebook. 
 
@@ -56,3 +50,4 @@ De nuevo, los detalles completos pueden consultarse en la mencionada [tesis][man
 [arty]: https://digilent.com/reference/programmable-logic/arty-z7/start
 [pynq]: http://www.pynq.io/
 [simposio]: https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Ffcenudea%2Fvideos%2F394431428642955%2F&show_text=false&width=560&t=12720
+
